@@ -15,8 +15,6 @@ describe("Customer Repository Test", () => {
       sync: { force: true },
     });
     sequelize.modelManager.addModel(CustomerModel);
-    //console.log(sequelize.modelManager.all.toString())
-    //console.log(sequelize.models)
     await sequelize.sync();
   });
 
@@ -38,9 +36,23 @@ describe("Customer Repository Test", () => {
     });
   });
 
-  test("Should update a product", async () => {});
+  test("Should update a costumer", async () => {
 
-  test("Should find a product", async () => {});
+  });
+
+  test("Should find a costumer", async () => {
+    const customerRepository = new CustomerRepository();
+
+    const customer1 = new Customer("1", "Customer 1");
+    customer1.address = new Address("Street 1", "Zipcode1", "City1", "1");
+    await customerRepository.create(customer1);
+
+    const costumerModel = await CustomerModel.findOne({where: {id: "1"}})
+    const foundModel = await customerRepository.find("1");
+
+    expect(costumerModel.toJSON().id).toEqual(foundModel.id)
+
+  });
 
   test("Should find all customers", async () => {
     const customerRepository = new CustomerRepository();
