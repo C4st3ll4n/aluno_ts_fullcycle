@@ -1,6 +1,8 @@
 import EventDispatcher from "../shared/event-dispatcher";
 import LogCustomerCreatedHandler from "./handler/log-customer-created.handler";
 import CustomerCreatedEvent from "./customer-created.event";
+import LogAddressChangedHandler from "./handler/log-address-changed.handler";
+import CustomerAddressChangedEvent from "./customer-address-changed.event";
 
 describe("Customer events test", () => {
 
@@ -93,15 +95,17 @@ describe("Customer events test", () => {
         // tslint:disable:no-string-literal
         describe("notify", () => {
             it("should notify all handlers", () => {
-                const eventHandler = new SendEmailWhenProductCreatedHandler();
+                const eventHandler = new LogAddressChangedHandler();
                 const spy = jest.spyOn(eventHandler, "handle")
 
-                eventDispatcher.register("ProductCreatedEvent", eventHandler)
+                eventDispatcher.register("CustomerAddressChangedEvent", eventHandler)
 
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"]).toBeDefined()
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(1)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined()
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(1)
 
-                const event = new ProductCreatedEvent({name: "Product 1", email: "any_email@mail.com"});
+                const event = new CustomerAddressChangedEvent({
+                    id:"1", nome:"Pedro", endereco:"Rua do Fulano 40028922"
+                });
 
                 eventDispatcher.notify(event)
 
@@ -113,43 +117,43 @@ describe("Customer events test", () => {
         describe("register", () => {
 
             it("should register an event handler", () => {
-                const eventHandler = new SendEmailWhenProductCreatedHandler();
+                const eventHandler = new LogAddressChangedHandler();
 
-                eventDispatcher.register("ProductCreatedEvent", eventHandler)
+                eventDispatcher.register("CustomerAddressChangedEvent", eventHandler)
 
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"]).toBeDefined()
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(1)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined()
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(1)
 
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"][0]).toMatchObject(eventHandler)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"][0]).toMatchObject(eventHandler)
             })
 
         })
 
         describe("unregister", () => {
             it("should unregister an event handler", () => {
-                const eventHandler = new SendEmailWhenProductCreatedHandler();
+                const eventHandler = new LogAddressChangedHandler();
 
-                eventDispatcher.register("ProductCreatedEvent", eventHandler)
-                eventDispatcher.register("ProductCreatedEvent", new SendEmailWhenProductCreatedHandler())
+                eventDispatcher.register("CustomerAddressChangedEvent", eventHandler)
+                eventDispatcher.register("CustomerAddressChangedEvent", new LogAddressChangedHandler())
 
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"]).toBeDefined()
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(2)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined()
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(2)
 
-                eventDispatcher.unregister("ProductCreatedEvent", eventHandler)
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"]).toBeDefined()
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(1)
+                eventDispatcher.unregister("CustomerAddressChangedEvent", eventHandler)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined()
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(1)
             })
         })
 
         describe("unregisterAll", () => {
             it("should unregister all event handlers", () => {
-                const eventHandler = new SendEmailWhenProductCreatedHandler();
+                const eventHandler = new LogAddressChangedHandler();
 
-                eventDispatcher.register("ProductCreatedEvent", eventHandler)
-                eventDispatcher.register("ProductCreatedEvent", new SendEmailWhenProductCreatedHandler())
+                eventDispatcher.register("CustomerAddressChangedEvent", eventHandler)
+                eventDispatcher.register("CustomerAddressChangedEvent", new LogAddressChangedHandler())
 
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"]).toBeDefined()
-                expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"].length).toBe(2)
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"]).toBeDefined()
+                expect(eventDispatcher.getEventHandlers["CustomerAddressChangedEvent"].length).toBe(2)
 
                 eventDispatcher.unregisterAll();
 
