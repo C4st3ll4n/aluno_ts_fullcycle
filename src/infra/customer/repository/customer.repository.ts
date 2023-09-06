@@ -10,10 +10,10 @@ export class CustomerRepository implements CustomerRepositoryInterface {
       name: entity.name,
       active: entity.isActive,
       rewardPoints: entity.rewardPoints,
-      street: entity.address._street,
-      number: entity.address._number,
-      zipcode: entity.address._zip,
-      city: entity.address._city,
+      street: entity._address._street,
+      number: entity._address._number,
+      zip: entity._address._zip,
+      city: entity._address._city,
     });
   }
 
@@ -24,10 +24,10 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         name: entity.name,
         active: entity.isActive,
         rewardPoints: entity.rewardPoints,
-        street: entity.address._street,
-        number: entity.address._number,
-        zipcode: entity.address._zip,
-        city: entity.address._city,
+        street: entity._address._street,
+        number: entity._address._number,
+        zipcode: entity._address._zip,
+        city: entity._address._city,
       },
       {
         where: {

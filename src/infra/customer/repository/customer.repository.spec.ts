@@ -10,11 +10,11 @@ describe("Customer Repository Test", () => {
   beforeEach(async () => {
     sequelize = new Sequelize({
       dialect: "sqlite",
-      storage: ":memory",
+      storage: ":memory:",
       logging: false,
       sync: { force: true },
     });
-    sequelize.modelManager.addModel(CustomerModel);
+    sequelize.addModels([CustomerModel])
     await sequelize.sync();
   });
 
@@ -33,6 +33,12 @@ describe("Customer Repository Test", () => {
     expect(customerModel.toJSON()).toStrictEqual({
       id: "1",
       name: "Customer 1",
+      active: false,
+      city: "City1",
+      number: "1",
+      rewardPoints: 0,
+      street: "Street 1",
+      zip: "Zipcode1",
     });
   });
 
