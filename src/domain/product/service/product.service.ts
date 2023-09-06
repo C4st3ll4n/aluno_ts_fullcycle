@@ -4,7 +4,7 @@ export default class ProductService {
 
     static increasePrice(products: Product[], percentage: number) {
         products.forEach(product => {
-            const valueToIncrease = (product.preco * percentage) / 100 + product.preco
+            const valueToIncrease = (product.price * percentage) / 100 + product.price
             product.changePrice(valueToIncrease)
         })
     }

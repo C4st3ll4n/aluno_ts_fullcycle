@@ -9,7 +9,7 @@ describe("Product service tests", ()=> {
 
         ProductService.increasePrice(products, 100);
 
-        expect(product1.preco).toBe(100)
-        expect(product2.preco).toBe(200)
+        expect(product1.price).toBe(100)
+        expect(product2.price).toBe(200)
     })
 })

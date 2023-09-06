@@ -23,12 +23,12 @@ describe("Product test", () => {
     it("Should change name", ()=>{
         const product = new Product("1", "Produtineo", 150)
         product.changeName("Prod2");
-        expect(product.nome).toBe("Prod2")
+        expect(product.name).toBe("Prod2")
     })
 
     it("Should change price", ()=>{
         const product = new Product("1", "Produtineo", 150)
         product.changePrice(200);
-        expect(product.preco).toBe(200)
+        expect(product.price).toBe(200)
     })
 })
