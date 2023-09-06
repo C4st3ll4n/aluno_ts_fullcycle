@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize"
 import ProductModel from "../db/sequelize/model/product.model";
-import Product from "../../domain/product/entity/product";
+import Product from "../../../domain/product/entity/product";
 import { ProductRepository } from "./product.repository";
 
 describe("Product Repository Test", ()=>{
