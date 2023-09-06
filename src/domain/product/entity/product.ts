@@ -1,12 +1,14 @@
-export default class Product {
-    private readonly id: string;
-    private name: string;
-    private price: number;
+import ProductInterface from "./product.interface";
+
+export default class Product implements ProductInterface{
+    private readonly _id: string;
+    private _name: string;
+    private _price: number;
 
     constructor(id: string, name: string, price: number) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+        this._id = id;
+        this._name = name;
+        this._price = price;
         this.validate()
     }
     validate() {
@@ -22,24 +24,24 @@ export default class Product {
     }
 
     changeName(newName:string):void{
-        this.name = newName;
+        this._name = newName;
         this.validate()
     }
 
     changePrice(newPrice:number):void{
-        this.price = newPrice;
+        this._price = newPrice;
         this.validate()
     }
 
-    get nome():string{
-        return this.name;
+    get name():string{
+        return this._name;
     }
 
-    get preco():number{
-        return this.price;
+    get price():number{
+        return this._price;
     }
 
-    get identificador():string{
-        return this.id;
+    get id():string{
+        return this._id;
     }
 }
