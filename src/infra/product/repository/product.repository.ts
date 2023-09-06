@@ -5,18 +5,18 @@ import ProductModel from "../db/sequelize/model/product.model";
 export class ProductRepository implements ProductRepositoryInterface{
     async create(entity: Product): Promise<void> {
         await ProductModel.create({
-            id: entity.identificador,
-            name: entity.nome,
-            price: entity.preco
+            id: entity.id,
+            name: entity.name,
+            price: entity.price
         })
     }
     async update(entity: Product): Promise<void> {
         await ProductModel.update({
-            name: entity.nome,
-            price: entity.preco
+            name: entity.name,
+            price: entity.price
         }, {
             where:{
-                id: entity.identificador
+                id: entity.id
             }
         })
     }

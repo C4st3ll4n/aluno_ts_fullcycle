@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize"
+import { Sequelize } from "sequelize-typescript"
 import ProductModel from "../db/sequelize/model/product.model";
 import Product from "../../../domain/product/entity/product";
 import { ProductRepository } from "./product.repository";
@@ -11,12 +11,12 @@ describe("Product Repository Test", ()=>{
         sequelize = new Sequelize(
             {
                 dialect:"sqlite",
-                storage: ':memory',
+                storage: ':memory:',
                 logging: false,
                 sync: {force: true}
             }
         );
-        sequelize.modelManager.addModel(ProductModel)
+        sequelize.addModels([ProductModel])
         await sequelize.sync();
     })
 
@@ -75,9 +75,9 @@ describe("Product Repository Test", ()=>{
         const foundProduct = await productRepository.find("1");
 
         expect(productModel.toJSON()).toStrictEqual({
-            id: foundProduct.identificador,
-            name: foundProduct.nome,
-            price: foundProduct.preco
+            id: foundProduct.id,
+            name: foundProduct.name,
+            price: foundProduct.price
         })
 
     });
