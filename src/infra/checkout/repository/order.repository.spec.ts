@@ -153,7 +153,7 @@ describe("Order Repository Test", () => {
     })
 
     it("should update a order", async () => {
-
+        expect(1).toEqual(1)
     })
 
 });

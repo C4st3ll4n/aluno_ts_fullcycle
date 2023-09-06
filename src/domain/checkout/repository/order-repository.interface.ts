@@ -1,4 +1,3 @@
-import Customer from "../../customer/entity/customer";
 import RepositoryInterface from "../../shared/repository/repository-interface";
 import Order from "../entity/order";
 

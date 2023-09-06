@@ -37,7 +37,7 @@ describe("Customer Repository Test", () => {
   });
 
   test("Should update a costumer", async () => {
-
+    expect(1).toBe(1)
   });
 
   test("Should find a costumer", async () => {

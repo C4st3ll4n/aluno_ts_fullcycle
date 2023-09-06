@@ -1,21 +1,22 @@
 import Product from "./product"
 
+// tslint:disable:no-unused-expression
 describe("Product test", () => {
     it("Should throw error when id is empty", ()=> {
         expect(()=>{
-            let product = new Product("", "Produtineo", 150)
+            new Product("", "Produtineo", 150)
         }).toThrowError("Id is required")
     })
 
     it("Should throw error when price is invalid", ()=> {
         expect(()=>{
-            let product = new Product("1", "Produtineo",-50)
+            new Product("1", "Produtineo",-50)
         }).toThrowError("Price is required and bigger than 0.")
     })
 
     it("Should throw error when name is empty", ()=> {
         expect(()=>{
-            let product = new Product("1", "", 150)
+            new Product("1", "", 150)
         }).toThrowError("Name is required")
     })
 

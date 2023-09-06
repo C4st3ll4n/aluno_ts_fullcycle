@@ -10,10 +10,10 @@ export default class Product {
         this.validate()
     }
     validate() {
-        if (this.id.length === 0 || this.id === undefined) {
+        if (this.id.length === 0) {
             throw new Error("Id is required.");
         }
-        if (this.name.length === 0 || this.name === undefined) {
+        if (this.name.length === 0) {
             throw new Error("Name is required.");
         }
         if (this.price<=0) {

@@ -31,6 +31,7 @@ export default class Customer {
         return this._id;
     }
 
+    // tslint:disable-next-line:adjacent-overload-signatures
     get name(): string {
         return this._name;
     }
