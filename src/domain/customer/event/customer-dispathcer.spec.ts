@@ -1,4 +1,4 @@
-import EventDispatcher from "../shared/event-dispatcher";
+import EventDispatcher from "../../shared/event/event-dispatcher";
 import LogCustomerCreatedHandler from "./handler/log-customer-created.handler";
 import CustomerCreatedEvent from "./customer-created.event";
 import LogAddressChangedHandler from "./handler/log-address-changed.handler";

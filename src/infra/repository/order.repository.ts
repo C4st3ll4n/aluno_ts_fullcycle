@@ -3,7 +3,7 @@ import Order from "../../domain/checkout/entity/order";
 import OrderModel from "../db/sequelize/model/order.model";
 import OrderItemModel from "../db/sequelize/model/order-item.model";
 import ProductModel from "../db/sequelize/model/product.model";
-import Product from "../../domain/entity/product";
+import Product from "../../domain/product/entity/product";
 import OrderItem from "../../domain/checkout/entity/order_item";
 
 export class OrderRepository implements  OrderRepositoryInterface {
