@@ -1,8 +1,10 @@
+import {Sequelize} from "sequelize-typescript";
+
 import OrderModel from "../db/sequelize/model/order.model";
 import OrderItemModel from "../db/sequelize/model/order-item.model";
 import CustomerModel from "../../customer/db/sequelize/model/customer.model";
 import ProductModel from "../../product/db/sequelize/model/product.model";
-import {Sequelize} from "sequelize-typescript";
+
 import Customer from "../../../domain/customer/entity/customer";
 import {CustomerRepository} from "../../customer/repository/customer.repository";
 import Address from "../../../domain/customer/value-object/address";
@@ -18,16 +20,20 @@ describe("Order Repository Test", () => {
     beforeEach(async () => {
         sequelize = new Sequelize({
             dialect: "sqlite",
-            storage: ":memory",
+            storage: ":memory:",
             logging: false,
-            sync: {force: true},
+            sync: { force: true },
         });
-        sequelize.modelManager.addModel(OrderModel);
-        sequelize.modelManager.addModel(OrderItemModel);
-        sequelize.modelManager.addModel(CustomerModel);
-        sequelize.modelManager.addModel(ProductModel);
+
+        sequelize.addModels([
+            CustomerModel,
+            OrderModel,
+            OrderItemModel,
+            ProductModel,
+        ]);
         await sequelize.sync();
     });
+
 
     afterEach(async () => {
         sequelize.close();
@@ -38,14 +44,14 @@ describe("Order Repository Test", () => {
 
         const customer = new Customer("1", "Customer 1");
         customer.address = new Address("Street 1", "Zipcode1", "City1", "1");
-        costumerRepository.create(customer);
+        await costumerRepository.create(customer);
 
         const productRepository = new ProductRepository();
 
         const product = new Product("1", "Product 1", 100);
         await productRepository.create(product);
 
-        const orderItem = new OrderItem("1", product.nome, product.preco, 2, product.identificador)
+        const orderItem = new OrderItem("1", product.name, product.price, 2, product.id)
 
         const order = new Order("123", customer.id, [orderItem]);
 
@@ -60,16 +66,16 @@ describe("Order Repository Test", () => {
         })
 
         expect(orderModel.toJSON()).toStrictEqual({
-            id:order.id(),
-            customerId:customer.id,
-            total:order.total(),
+            id: order.id(),
+            customerId: customer.id,
+            total: order.total(),
             items: [{
                 id: orderItem.id,
-                name:orderItem.name,
-                price:orderItem.price,
-                quantity:orderItem.quantity,
-                productId:orderItem.product(),
-                orderId:order.id()
+                name: orderItem.name,
+                price: orderItem.price,
+                quantity: orderItem.quantity,
+                productId: orderItem.product(),
+                orderId: order.id()
             }]
         })
     })
@@ -91,8 +97,8 @@ describe("Order Repository Test", () => {
 
 
         const items: OrderItem[] = [
-            new OrderItem("1", "oi1", 120, 2, _product1.identificador),
-            new OrderItem("2", 'oi2', 20, 2, _product2.identificador),
+            new OrderItem("1", "oi1", 120, 2, _product1.id),
+            new OrderItem("2", 'oi2', 20, 2, _product2.id),
         ]
 
         const entity = new Order("123", "321", items);
@@ -132,8 +138,8 @@ describe("Order Repository Test", () => {
         await costumerRepository.create(customer);
 
         const items: OrderItem[] = [
-            new OrderItem("1", "oi1", 120, 2, _product1.identificador),
-            new OrderItem("2", 'oi2', 20, 2, _product2.identificador),
+            new OrderItem("1", "oi1", 120, 2, _product1.id),
+            new OrderItem("2", 'oi2', 20, 2, _product2.id),
         ]
 
         const order1 = new Order("1", "321", items);
