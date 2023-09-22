@@ -4,6 +4,12 @@ import CustomerRepositoryInterface from "../../../customer/repository/customer-r
 import {InputCreateCustomerDTO} from "./create.customer.dto";
 import CreateCustomerUsecase from "./create.customer.usecase";
 
+jest.mock("uuid", () => ({
+    v4(): string {
+        return "1";
+    }
+}))
+
 const mockCustomer = (): Customer => {
     const customer = new Customer("1", "Any Customer name");
     customer.address = new Address("Any Street", "any zip code", "Any City", "any number");
@@ -50,8 +56,8 @@ describe("Create Customer UseCase Test", () => {
         const output = await usecase.execute(input);
 
         expect(output.id).toEqual("1")
-        expect(output.name).toEqual("Any Customer name updated")
-        expect(output.address.city).toEqual("Any City updated")
-        expect(output.address.street).toEqual("Any Street updated")
+        expect(output.name).toEqual("Any Customer name")
+        expect(output.address.city).toEqual("Any City")
+        expect(output.address.street).toEqual("Any Street")
     })
 })
