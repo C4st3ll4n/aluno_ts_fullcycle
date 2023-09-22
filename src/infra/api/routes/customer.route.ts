@@ -32,6 +32,7 @@ customerRoute.get("/", async(req, res)=>{
   
   try{
     const output = await usecase.execute();
+    console.log(output)
     res.send(output);
   }catch(e){
     res.status(500).send(e);
