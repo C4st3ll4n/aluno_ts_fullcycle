@@ -16,6 +16,7 @@ async function setupDb() {
   sequelize = new Sequelize({
     dialect: "sqlite",
     storage: ":memory:",
+    logging: false
   });
 
   await sequelize.addModels([CustomerModel, ProductModel]);

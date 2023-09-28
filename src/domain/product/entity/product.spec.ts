@@ -11,7 +11,7 @@ describe("Product test", () => {
     it("Should throw error when price is invalid", ()=> {
         expect(()=>{
             new Product("1", "Produtineo",-50)
-        }).toThrowError("product: Price is required and bigger than 0")
+        }).toThrowError("product: Price is required and bigger then zero")
     })
 
     it("Should throw error when name is empty", ()=> {
@@ -23,7 +23,7 @@ describe("Product test", () => {
     it("Should throw error when name, price amd id are empty", ()=> {
         expect(()=>{
             new Product("", "", undefined)
-        }).toThrowError("product: Id is required,product: Name is required,product: Price is required and bigger than 0")
+        }).toThrowError("product: Id is required,product: Name is required,product: Price is required and bigger then zero")
     })
 
     it("Should change name", ()=>{
