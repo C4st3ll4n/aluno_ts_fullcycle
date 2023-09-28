@@ -2,7 +2,7 @@ import Notification from "../notification/notification";
 
 export default abstract class Entity {
     protected id: string
-    protected notification: Notification
+    notification: Notification
 
     constructor(id?:string){
         this.notification = new Notification()
