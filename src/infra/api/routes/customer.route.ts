@@ -3,6 +3,7 @@ import CreateCustomerUsecase from "../../../domain/usecase/customer/create/creat
 import { CustomerRepository } from "../../customer/repository/customer.repository";
 import { InputCreateCustomerDTO } from "../../../domain/usecase/customer/create/create.customer.dto";
 import { ListCustomerUsecase } from "../../../domain/usecase/customer/list/list.customer.usecase";
+import CustomerPresenter from "../presenter/customer.presenter";
 
 export const customerRoute = express.Router();
 
@@ -29,11 +30,14 @@ customerRoute.post("/", async (req, res) => {
 
 customerRoute.get("/", async(req, res)=>{
   const usecase = new ListCustomerUsecase(new CustomerRepository());
-  
   try{
     const output = await usecase.execute();
-    console.log(output)
-    res.send(output);
+
+    res.format({
+      json: async()=>res.send(output),
+      xml:async()=>res.send(CustomerPresenter.toXML(output))
+    })
+
   }catch(e){
     res.status(500).send(e);
   }
