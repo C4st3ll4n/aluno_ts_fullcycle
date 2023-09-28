@@ -5,19 +5,25 @@ describe("Product test", () => {
     it("Should throw error when id is empty", ()=> {
         expect(()=>{
             new Product("", "Produtineo", 150)
-        }).toThrowError("Id is required")
+        }).toThrowError("product: Id is required")
     })
 
     it("Should throw error when price is invalid", ()=> {
         expect(()=>{
             new Product("1", "Produtineo",-50)
-        }).toThrowError("Price is required and bigger than 0.")
+        }).toThrowError("product: Price is required and bigger than 0")
     })
 
     it("Should throw error when name is empty", ()=> {
         expect(()=>{
             new Product("1", "", 150)
-        }).toThrowError("Name is required")
+        }).toThrowError("product: Name is required")
+    })
+
+    it("Should throw error when name, price amd id are empty", ()=> {
+        expect(()=>{
+            new Product("", "", undefined)
+        }).toThrowError("product: Id is required,product: Name is required,product: Price is required and bigger than 0")
     })
 
     it("Should change name", ()=>{
