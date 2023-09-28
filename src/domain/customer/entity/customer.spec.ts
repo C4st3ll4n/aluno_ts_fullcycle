@@ -5,14 +5,20 @@ import Address from "../value-object/address"
 describe("Customer test", () => {
     test("Should throw error when id is empty", () => {
         expect(() => {
-            new Customer("", "Pedro");
-        }).toThrowError("Id is required")
+            new Customer(undefined, "Pedro");
+        }).toThrowError("customer: Id is required")
     })
 
     test("Should throw error when name is empty", () => {
         expect(() => {
             new Customer("1", "");
-        }).toThrowError("Name is required")
+        }).toThrowError("customer: Name is required")
+    })
+
+    test("Should throw error when name and id are empty", () => {
+        expect(() => {
+            new Customer("", "");
+        }).toThrowError("customer: Name is required,customer: Id is required")
     })
 
     test("Should change name", () => {

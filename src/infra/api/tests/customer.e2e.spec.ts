@@ -4,7 +4,9 @@ import { sequelize, app } from "../express"
 describe("E2E Customer's test", ()=>{
 
     beforeAll(async ()=>{
-        await sequelize.sync({force:true})
+        await sequelize.sync({
+            logging: false,
+            force:true})
     
     })
 

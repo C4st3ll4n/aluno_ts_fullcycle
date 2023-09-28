@@ -13,7 +13,7 @@ export default class OrderService {
             throw new Error("Order must have at leat one item");
         }
 
-        const order = new Order(v4(), customer._id, items);
+        const order = new Order(v4(), customer.identificador, items);
         customer.addRewardPoints(order.total()/2);
         return order;
     }

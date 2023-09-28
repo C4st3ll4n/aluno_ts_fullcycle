@@ -1,70 +1,84 @@
+import Entity from "../../shared/entity/entity.abstract";
+import NotificationError from "../../shared/notification/notification.error";
 import Address from "../value-object/address";
 
-export default class Customer {
+export default class Customer extends Entity {
+  _name: string;
+  _address!: Address;
+  _active: boolean = false;
+  _rewardPoints: number = 0;
 
-    _id: string;
-    _name: string;
-    _address!: Address;
-    _active: boolean = false;
-    _rewardPoints: number = 0;
+  constructor(id: string, name: string) {
+    super(id);
+    this.id = id;
+    this._name = name;
+    this.validate();
 
-    constructor(id: string, name:string) {
-        this._id = id;
-        this._name = name
-        this.validate()
+    if(this.notification.hasErrors()){
+        throw new NotificationError(this.notification.getErrors())
     }
+  }
 
-    validate(){
-        if(this._name.length===0){
-            throw new Error("Name is required");
-        }
-        if(this._id.length===0){
-            throw new Error("Id is required");
-        }
+  validate() {
+    if (this._name.length === 0) {
+      this.notification.addError({
+        context: "customer",
+        message: "Name is required",
+      });
     }
+    if (this.id === undefined || this.id.length === 0) {
+      this.notification.addError({
+        context: "customer",
+        message: "Id is required",
+      });
+    }
+  }
 
-    set name(name:string){
-        this._name = name;
-    }
+  set name(name: string) {
+    this._name = name;
+  }
 
-    get id(): string {
-        return this._id;
-    }
+  get identificador():string {
+    return this.id;
+  }
 
-    // tslint:disable-next-line:adjacent-overload-signatures
-    get name(): string {
-        return this._name;
-    }
+  // tslint:disable-next-line:adjacent-overload-signatures
+  get name(): string {
+    return this._name;
+  }
 
-    get isActive(): boolean{
-        return this._active;
-    }
+  get isActive(): boolean {
+    return this._active;
+  }
 
-    set address(address:Address){
-        this._address = address;
-    }
+  set address(address: Address) {
+    this._address = address;
+  }
 
-    get rewardPoints(){
-        return this._rewardPoints;
-    }
+  get rewardPoints() {
+    return this._rewardPoints;
+  }
 
-    changeName(name: string){
-        this._name = name;
-        this.validate()
-    }
+  changeName(name: string) {
+    this._name = name;
+    this.validate();
+  }
 
-    activate(){
-        if(this._address === undefined){
-            throw new Error("Address is mandatory to activate");
-        }
-        this._active = true;
+  activate() {
+    if (this._address === undefined) {
+      this.notification.addError({
+        context: "customer",
+        message: "Address is mandatory to activate",
+      });
     }
+    this._active = true;
+  }
 
-    deactivate(){
-        this._active=false;
-    }
+  deactivate() {
+    this._active = false;
+  }
 
-    addRewardPoints(points:number){
-        this._rewardPoints += points;
-    }
+  addRewardPoints(points: number) {
+    this._rewardPoints += points;
+  }
 }
